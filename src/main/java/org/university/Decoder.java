@@ -1,5 +1,8 @@
 package org.university;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Decoder {
 
     public String decodeVowels(String input) {
@@ -30,6 +33,32 @@ public class Decoder {
         return sb.toString();
     }
 
+    public String decodeSentence(String sentence) {
+        String[] words = sentence.split("[\\s,]+"); // Розділити предложення на слова за пробілами та комами
+        List<String> decodedWords = new ArrayList<>();
+
+        for (String word : words) {
+            if (word.matches(".*\\d.*")) {
+                // Якщо слово містить цифри, використовуйте decodeVowels
+                decodedWords.add(decodeVowels(word));
+            } else {
+                // Інакше використовуйте decodeConsonant
+                decodedWords.add(decodeConsonant(word));
+            }
+        }
+
+        // Зібрати розшифроване предложення
+        StringBuilder sb = new StringBuilder();
+        for (String decodedWord : decodedWords) {
+            sb.append(decodedWord).append(" ");
+        }
+
+        // Видалити останній пробіл, який може бути доданий в кінці
+        sb.deleteCharAt(sb.length() - 1);
+
+        return sb.toString();
+    }
+
     private char findPreviousConsonant(char c) {
         if (c == 'b') {
             return 'a'; // Special case for 'b'.
@@ -49,4 +78,5 @@ public class Decoder {
         String vowels = "aeiou";
         return vowels.contains(String.valueOf(toCheck));
     }
+
 }

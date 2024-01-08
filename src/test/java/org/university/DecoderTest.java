@@ -41,5 +41,10 @@ public class DecoderTest {
         assertFalse(decoder.isVowel('y'));
         assertFalse(decoder.isVowel('z'));
     }
+
+    @Test
+    public void testDecodeSentence() {
+        assertEquals("testing testing hello", decoder.decodeSentence("t2st3ng vetviph h2ll4"));
+    }
 }
 
