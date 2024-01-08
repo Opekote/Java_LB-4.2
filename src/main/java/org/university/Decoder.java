@@ -34,26 +34,23 @@ public class Decoder {
     }
 
     public String decodeSentence(String sentence) {
-        String[] words = sentence.split("[\\s,]+"); // Розділити предложення на слова за пробілами та комами
+        String[] words = sentence.split("[\\s,]+");
         List<String> decodedWords = new ArrayList<>();
 
         for (String word : words) {
             if (word.matches(".*\\d.*")) {
-                // Якщо слово містить цифри, використовуйте decodeVowels
                 decodedWords.add(decodeVowels(word));
             } else {
-                // Інакше використовуйте decodeConsonant
+
                 decodedWords.add(decodeConsonant(word));
             }
         }
 
-        // Зібрати розшифроване предложення
         StringBuilder sb = new StringBuilder();
         for (String decodedWord : decodedWords) {
             sb.append(decodedWord).append(" ");
         }
 
-        // Видалити останній пробіл, який може бути доданий в кінці
         sb.deleteCharAt(sb.length() - 1);
 
         return sb.toString();
